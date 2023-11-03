@@ -1,21 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import Criar from '@/app/criar';
-import Home from '@/app/home';
-import Login from '@/app/login';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
-const Stack = createNativeStackNavigator()
+import { Routes } from '@/routes';
+import { Loading } from '@/components/Loading';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name='home' component={Home} />
-        <Stack.Screen name='login' component={Login} options={{animation: 'slide_from_bottom'}} />
-        <Stack.Screen name='criar' component={Criar} options={{animation: 'slide_from_bottom'}} />
-      </Stack.Navigator>
       <StatusBar style="light" translucent={false} />
+      { fontsLoaded ? <Routes /> : <Loading /> }
     </NavigationContainer>
   );
 }
